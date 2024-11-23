@@ -57,6 +57,7 @@ if (currentAction === "output_ports") {
       port: parseInt(formData.get("out_port")),
   });
 } else if (currentAction === "normal") {
+  data.match.in_port = parseInt(formData.get("in_port"));
   data.actions.push({
       type: "OUTPUT",
       port: "NORMAL",
@@ -67,6 +68,7 @@ if (currentAction === "output_ports") {
       port: "FLOOD",
   });
 } else if (currentAction === "drop") {
+  data.match.in_port = parseInt(formData.get("in_port"));
   data.actions = []; // Sin acciones, lo que implica descartar el paquete
 }
   const responseElement = document.getElementById("response");
@@ -177,7 +179,12 @@ function changeAction(action) {
     ipGroupOut.classList.remove('hidden');
     inPortGroup.classList.add('hidden'); //Desaparecer
     outPortGroup.classList.remove('hidden'); // Aparecer
-  } else if (action === 'normal' || action === 'flood' || action === 'drop') {
+  } else if (action === 'flood') {
+    inPortGroup.classList.add('hidden');
+    outPortGroup.classList.add('hidden');
+    ipGroupIn.classList.add('hidden');
+    ipGroupOut.classList.add('hidden');
+  } else if (action === 'normal' || action === 'drop') {
     inPortGroup.classList.remove('hidden');
     outPortGroup.classList.add('hidden');
     ipGroupIn.classList.add('hidden');
