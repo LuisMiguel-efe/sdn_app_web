@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurador de Flujos OpenFlow</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>Configurador de Flujos OpenFlow</h1>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Formulario para añadir flujo -->
+      <section id="addFlow" class="card">          
+        <h2><i class="fas fa-plus-circle"></i> Añadir Flujo</h2>
+        <nav class="menu-bar">
+          <button onclick="changeAction('output_ports')" id="btn_output_ports">Ports Output</button>
+          <button onclick="changeAction('output_ip')">IP Output</button>
+          <button onclick="changeAction('normal')">Normal</button>
+          <button onclick="changeAction('flood')">Flood</button>
+          <button onclick="changeAction('drop')">Drop</button>
+        </nav>
+        <form id="flowForm">
+          <div class="form-group">
+            <label for="dpid">DPID del Switch:</label>
+            <input type="number" id="dpid" name="dpid" required>
+          </div>
+          <div class="form-group" id="in_port_group">
+            <label for="in_port">Puerto de Entrada:</label>
+            <input type="number" id="in_port" name="in_port">
+          </div>
+          <div class="form-group hidden" id="in_ip_group">
+            <label for="ip_dst">IP de Fuente:</label>
+            <input type="text" id="ip_src" name="ip_src">
+          </div>
+          <div class="form-group hidden" id="out_ip_group">
+            <label for="ip_dst">IP de Destino:</label>
+            <input type="text" id="ip_dst" name="ip_dst">
+          </div>
+          <div class="form-group" id="out_port_group">
+            <label for="out_port">Puerto de Salida:</label>
+            <input type="number" id="out_port" name="out_port">
+          </div>
+
+          <div class="form-group">
+            <label for="cookie">Cookie:</label>
+            <input type="number" id="cookie" name="cookie" value="1" required>
+          </div>
+          <div class="form-group">
+            <label for="priority">Prioridad:</label>
+            <input type="number" id="priority" name="priority" value="11111" required>
+          </div>
+          <div class="form-group">
+            <label for="idle_timeout">Idle Timeout:</label>
+            <input type="number" id="idle_timeout" name="idle_timeout" value="300" required>
+          </div>
+          <div class="form-group">
+            <label for="hard_timeout">Hard Timeout:</label>
+            <input type="number" id="hard_timeout" name="hard_timeout" value="300" required>
+          </div>
+          <button type="submit" class="btn primary">Enviar Flujo</button>
+        </form>
+      </section>
+
+      <!-- Formulario para ver y eliminar flujos -->
+      <div class="right-section">
+        <section id="viewFlows" class="card">
+          <h2><i class="fas fa-eye"></i> Ver Flujos</h2>
+          <form id="listFlowsForm">
+            <div class="form-group">
+              <label for="list_dpid">DPID del Switch:</label>
+              <input type="number" id="list_dpid" name="list_dpid" required>
+            </div>
+            <button type="submit" class="btn secondary">Listar Flujos</button>
+          </form>
+          <div id="flowsList">
+            <h3>Flujos:</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Cookie</th>
+                  <th>Match</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="flowsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="deleteFlow" class="card">
+          <h2><i class="fas fa-trash-alt"></i> Eliminar Flujo</h2>
+          <form id="deleteFlowForm">
+            <div class="form-group">
+              <label for="delete_dpid">DPID del Switch:</label>
+              <input type="number" id="delete_dpid" name="delete_dpid" required>
+            </div>
+            <div class="form-group">
+              <label for="delete_cookie">Cookie del Flujo:</label>
+              <input type="number" id="delete_cookie" name="delete_cookie" required>
+            </div>
+            <button type="submit" class="btn danger">Eliminar Flujo</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+  <!-- Label único para mensajes de error o éxito -->
+  <div id="response" class="response-box">Respuesta: </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
