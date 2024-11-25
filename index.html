@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interfaz Principal</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0053be, #ffffff);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    header {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Container for Buttons */
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      width: 100%;
+      padding: 20px;
+      background-color: #ffffff33;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Buttons */
+    .menu-button {
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: #2b7df7;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .menu-button:hover {
+      background-color: #1a5dc7;
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header>Sistema de Gestión de Red</header>
+  <div class="button-container">
+    <a href="flujos.html" class="menu-button">Gestionar Flujos</a>
+    <a href="apps_ryu.html" class="menu-button">Ejecutar Aplicaciones Ryu</a>
+    <a href="topologias.html" class="menu-button">Topologías</a>
+  </div>
+  <footer>
+    &copy; 2024 - Gestión de Redes SDN
+  </footer>
+</body>
+</html>

@@ -3,7 +3,7 @@ let currentAction = "output_ports"; // Acción seleccionada inicialmente
 
 // DOMContentLoaded: Configuración inicial al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-  setupRyuAppForm();
+  //setupRyuAppForm();
   setupFlowForm();
   setupListFlowsForm();
   setupDeleteFlowForm();
@@ -15,44 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /**
  * Configura el formulario para iniciar aplicaciones de Ryu
  */
-function setupRyuAppForm() {
-    const form = document.getElementById("ryuAppForm");
-    const responseElement = document.getElementById("response");
-  
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const appName = document.getElementById("ryu_app").value;
-  
-      responseElement.textContent = "Iniciando aplicación Ryu...";
-  
-      try {
-        // Enviar la solicitud POST para ejecutar la app de Ryu
-        const response = await fetch("http://localhost:8000/run_ryu_app", { // Asegúrate de que esta URL sea la correcta
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ app_name: appName })  // Aquí se envía el app_name como JSON
-        });
-  
-        if (response.ok) {
-          const result = await response.json();
-          responseElement.textContent = result.message;
-          responseElement.style.backgroundColor = "#DFF2BF"; // Color verde de éxito
-          responseElement.style.color = "#4F8A10";
-        } else {
-          const result = await response.json();
-          responseElement.textContent = `Error: ${result.detail}`;
-          responseElement.style.backgroundColor = "#FFBABA"; // Color rojo de error
-          responseElement.style.color = "#D8000C";
-        }
-      } catch (error) {
-        responseElement.textContent = `Error de conexión: ${error.message}`;
-        responseElement.style.backgroundColor = "#FFBABA";
-        responseElement.style.color = "#D8000C";
-      }
-    });
-}
+//function setupRyuAppForm() {   }
 
 /**
  * Configura el formulario para agregar flujos
@@ -71,7 +34,7 @@ function setupFlowForm() {
     responseElement.textContent = "Enviando flujo...";
 
     try {
-      const response = await fetch("http://localhost:8000/add_flow", {
+      const response = await fetch("http://192.168.18.66:8000/add_flow", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -106,7 +69,7 @@ function setupListFlowsForm() {
     flowsTableBody.innerHTML = ""; // Limpiar tabla
 
     try {
-      const response = await fetch(`http://localhost:8000/list_flows/${dpid}`);
+      const response = await fetch(`http://192.168.18.66:8000/list_flows/${dpid}`);
       if (response.ok) {
         const flows = await response.json();
         populateFlowsTable(flows, flowsTableBody);
@@ -136,7 +99,7 @@ function setupDeleteFlowForm() {
     const responseElement = document.getElementById("response");
 
     try {
-      const response = await fetch("http://localhost:8000/delete_flow", {
+      const response = await fetch("http://192.168.18.66:8000/delete_flow", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ dpid: parseInt(dpid), cookie: parseInt(cookie) }),

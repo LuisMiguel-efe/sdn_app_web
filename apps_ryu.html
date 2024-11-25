@@ -1,26 +1,60 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejecutar aplicación Ryu</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Ejecutar Aplicaciones en Ryu</title>
 </head>
 <body>
-    <h1>Ejecutar aplicación Ryu</h1>
-
-    <form id="ryuAppForm">
-        <label for="ryu_app">Selecciona una aplicación de Ryu:</label>
-        <select id="ryu_app">
-            <option value="simple_switch">simple_switch</option>
-            <option value="simple_switch_13">simple_switch_13</option>
-            <option value="simple_switch_13_stp">simple_switch_13_stp</option>
-        </select>
-        <button type="submit">Ejecutar</button>
+  <div class="container">
+    <form id="ryuForm">
+      <h2>Ejecutar Aplicaciones en Ryu</h2>
+      <label for="appName">Nombre de la Aplicación</label>
+      <input type="text" id="appName" name="appName" placeholder="Ejemplo: simple_switch_13" required>
+      <button type="submit">Ejecutar Aplicación</button>
     </form>
+    <div class="message" id="responseMessage"></div>
+  </div>
+  <a href="index.html" class="back-button">
+    &#8592; Volver
+    </a>
+  
+  <script>
+    const form = document.getElementById('ryuForm');
+    const responseMessage = document.getElementById('responseMessage');
 
-    <div id="response" style="margin-top: 20px;"></div>
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Evita que la página se recargue
 
-    <script src="script.js"></script>
+      const appName = document.getElementById('appName').value;
+      if (!appName) {
+        responseMessage.textContent = "Por favor, ingresa el nombre de la aplicación.";
+        responseMessage.className = "error";
+        return;
+      }
+
+      try {
+        // Realiza una solicitud POST al backend
+        const response = await fetch('http://192.168.18.66:8000/run_ryu_app', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ app_name: appName })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          responseMessage.textContent = result.message;
+          responseMessage.className = "success";
+        } else {
+          responseMessage.textContent = result.detail || "Error desconocido.";
+          responseMessage.className = "error";
+        }
+      } catch (error) {
+        responseMessage.textContent = "No se pudo conectar al backend.";
+        responseMessage.className = "error";
+      }
+    });
+  </script>
 </body>
 </html>
-
