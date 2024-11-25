@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 import requests
-
+import subprocess
+import os
 app = FastAPI()
 
 # Configuración de CORS
@@ -58,5 +59,36 @@ def delete_flow(flow: dict):
             return {"message": "Flujo eliminado exitosamente"}
         else:
             raise HTTPException(status_code=response.status_code, detail="Error al eliminar el flujo")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+ 
+# Aplicaciones Ryu
+
+from pydantic import BaseModel
+
+# Modelo para validar el cuerpo de la solicitud
+class RyuAppRequest(BaseModel):
+    app_name: str
+    
+@app.post("/run_ryu_app") 
+async def run_ryu_app(request: RyuAppRequest):
+    """
+    Recibe el nombre de una aplicación de Ryu y la ejecuta usando ryu-manager.
+    """
+    app_name = request.app_name
+    try:
+        # Ejecutar la aplicación Ryu usando subprocess
+        result = subprocess.run(
+            ["ryu-manager", app_name],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+
+        return {"message": f"Aplicación {app_name} ejecutada correctamente", 
+                "output": result.stdout}
+
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail=f"Error al ejecutar la aplicación: {e.stderr}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
