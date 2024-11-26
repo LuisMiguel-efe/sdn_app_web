@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupDeleteFlowForm();
 
   // Selección inicial de acción
-  document.getElementById("btn_output_ports").click();
+  document.getElementById("btn_flood").click();
 });
 
 /**
@@ -121,28 +121,37 @@ function setupDeleteFlowForm() {
  * Cambia los campos visibles según la acción seleccionada
  * @param {string} action - Acción seleccionada
  */
-function changeAction(action) {
+function changeAction(action, button) {
+  // Marcar el botón seleccionado
+  document.querySelectorAll('.menu-bar button').forEach(btn => btn.classList.remove('selected'));
+  button.classList.add('selected');
+  
   currentAction = action;
   const groups = {
     inPortGroup: document.getElementById("in_port_group"),
     outPortGroup: document.getElementById("out_port_group"),
     ipGroupIn: document.getElementById("in_ip_group"),
     ipGroupOut: document.getElementById("out_ip_group"),
+    macGroupIn: document.getElementById("in_mac_group"),
+    macGroupOut: document.getElementById("out_mac_group"),
   };
 
   switch (action) {
     case "output_ports":
-      toggleGroups(groups, ["inPortGroup", "outPortGroup"], ["ipGroupIn", "ipGroupOut"]);
+      toggleGroups(groups, ["inPortGroup", "outPortGroup"], ["ipGroupIn", "ipGroupOut", "macGroupIn", "macGroupOut"]);
       break;
     case "output_ip":
-      toggleGroups(groups, ["ipGroupIn", "ipGroupOut", "outPortGroup"], ["inPortGroup"]);
+      toggleGroups(groups, ["inPortGroup","ipGroupIn", "ipGroupOut", "outPortGroup"], ["macGroupIn", "macGroupOut"]);
+      break;
+    case "output_mac":
+      toggleGroups(groups, ["inPortGroup","macGroupIn", "macGroupOut", "outPortGroup"], ["ipGroupIn", "ipGroupOut"]);
       break;
     case "flood":
-      toggleGroups(groups, [], ["inPortGroup", "outPortGroup", "ipGroupIn", "ipGroupOut"]);
+      toggleGroups(groups, [], ["inPortGroup", "outPortGroup", "ipGroupIn", "ipGroupOut", "macGroupIn", "macGroupOut"]);
       break;
     case "normal":
     case "drop":
-      toggleGroups(groups, ["inPortGroup"], ["outPortGroup", "ipGroupIn", "ipGroupOut"]);
+      toggleGroups(groups, ["inPortGroup"], ["outPortGroup", "ipGroupIn", "ipGroupOut", "macGroupIn", "macGroupOut"]);
       break;
   }
 }
@@ -169,11 +178,17 @@ function createFlowData(formData) {
     data.match.in_port = parseInt(formData.get("in_port"));
     data.actions.push({ type: "OUTPUT", port: parseInt(formData.get("out_port")) });
   } else if (currentAction === "output_ip") {
+    data.match.in_port = parseInt(formData.get("in_port"));
     data.match.eth_type = 2048;
     data.match.ipv4_src = formData.get("ip_src");
     data.match.ipv4_dst = formData.get("ip_dst");
     data.actions.push({ type: "OUTPUT", port: parseInt(formData.get("out_port")) });
-  } else if (currentAction === "normal") {
+  } else if (currentAction === "output_mac") {
+    data.match.in_port = parseInt(formData.get("in_port"));
+    data.match.eth_src = formData.get("mac_src");
+    data.match.eth_dst = formData.get("mac_dst");
+    data.actions.push({ type: "OUTPUT", port: parseInt(formData.get("out_port")) });
+  }else if (currentAction === "normal") {
     data.match.in_port = parseInt(formData.get("in_port"));
     data.actions.push({ type: "OUTPUT", port: "NORMAL" });
   } else if (currentAction === "flood") {

@@ -130,6 +130,10 @@ table th, table td {
 .menu-bar button:hover {
   background-color: #747272;
 }
+.menu-bar button.selected {
+  background-color: #747272;; /* Color para el botón seleccionado */
+  /*color: white;*/
+}
 .hidden {
   display: none;
 }
