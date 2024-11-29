@@ -1,6 +1,6 @@
 // Variables globales
 let currentAction = "output_ports"; // Acción seleccionada inicialmente
-
+let ipAddress = '10.132.58.38'; // Direccion IP del servidor Fast Api 
 // DOMContentLoaded: Configuración inicial al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   //setupRyuAppForm();
@@ -34,11 +34,12 @@ function setupFlowForm() {
     responseElement.textContent = "Enviando flujo...";
 
     try {
-      const response = await fetch("http://192.168.18.66:8000/add_flow", {
+      
+      const response = await fetch(`http://${ipAddress}:8000/add_flow`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
+        });
 
       if (response.ok) {
         const result = await response.json();
@@ -69,7 +70,7 @@ function setupListFlowsForm() {
     flowsTableBody.innerHTML = ""; // Limpiar tabla
 
     try {
-      const response = await fetch(`http://192.168.18.66:8000/list_flows/${dpid}`);
+      const response = await fetch(`http://${ipAddress}:8000/list_flows/${dpid}`);
       if (response.ok) {
         const flows = await response.json();
         populateFlowsTable(flows, flowsTableBody);
@@ -99,7 +100,7 @@ function setupDeleteFlowForm() {
     const responseElement = document.getElementById("response");
 
     try {
-      const response = await fetch("http://192.168.18.66:8000/delete_flow", {
+      const response = await fetch(`http://${ipAddress}:8000/delete_flow`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ dpid: parseInt(dpid), cookie: parseInt(cookie) }),

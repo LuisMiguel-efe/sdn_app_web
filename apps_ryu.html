@@ -32,7 +32,7 @@
   <script>
     const form = document.getElementById('ryuForm');
     const responseMessage = document.getElementById('responseMessage');
-
+    let ipAddress = '10.132.58.38'; // Direccion IP del servidor Fast Api 
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); // Evita que la página se recargue
       const appName = document.getElementById('appName').value;
@@ -44,7 +44,7 @@
 
       try {
         // Realiza una solicitud POST al backend
-        const response = await fetch('http://192.168.18.66:8000/run_ryu_app', {
+        const response = await fetch(`http://${ipAddress}:8000/run_ryu_app`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ app_name: appName })

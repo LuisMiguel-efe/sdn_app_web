@@ -17,8 +17,8 @@ app.add_middleware(
     allow_headers=["*"],  # Permitir todos los headers
 )
 
-# RYU_CONTROLLER = "http://10.132.58.186:8080"
-RYU_CONTROLLER = "http://192.168.18.66:8080"
+RYU_CONTROLLER = "http://10.132.58.38:8080"
+# RYU_CONTROLLER = "http://192.168.18.66:8080"
 RYU_BASE_PATH = "/usr/lib/python3/dist-packages/ryu/app/"
 
 # Endpoint para añadir flujos
@@ -100,4 +100,6 @@ def run_ryu_app(request: RyuAppRequest):
         return {"message": f"La aplicación '{app_name}' fue iniciada exitosamente junto con ofctl_rest."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
 
