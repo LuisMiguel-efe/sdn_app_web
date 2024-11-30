@@ -8,14 +8,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>Configurador de Flujos OpenFlow</h1>
-  </header>
   <main>
-    <div class="container">
+    <div class="container">      
       <!-- Formulario para añadir flujo -->
       <section id="addFlow" class="card">          
-        <h2><i class="fas fa-plus-circle"></i> Añadir Flujo</h2>
+        <h2><i class="fas fa-plus-circle"></i> Añadir Flujos</h2>
         <nav class="menu-bar">
           <button onclick="changeAction('flood', this)" id="btn_flood">Flood</button>
           <button onclick="changeAction('output_ports', this)">Ports Output</button>
@@ -77,7 +74,7 @@
 
       <!-- Formulario para ver y eliminar flujos -->
       <div class="right-section">
-        <section id="viewFlows" class="card">
+        <section id="viewFlows" class="card1">
           <h2><i class="fas fa-eye"></i> Ver Flujos</h2>
           <form id="listFlowsForm">
             <div class="form-group">
@@ -88,20 +85,21 @@
           </form>
           <div id="flowsList">
             <h3>Flujos:</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Cookie</th>
-                  <th>Match</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="flowsTableBody"></tbody>
-            </table>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cookie</th>
+                    <th>Match</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="flowsTableBody"></tbody>
+              </table>
+            </div>
           </div>
         </section>
-
-        <section id="deleteFlow" class="card">
+        <section id="deleteFlow" class="card1">
           <h2><i class="fas fa-trash-alt"></i> Eliminar Flujo</h2>
           <form id="deleteFlowForm">
             <div class="form-group">
@@ -117,15 +115,14 @@
         </section>
       </div>
     </div>
+    <!-- Label único para mensajes de error o éxito -->
+    <div id="response" class="response-box">Respuesta: </div>  
+  </main>
 
-  <!-- Label único para mensajes de error o éxito -->
-  <div id="response" class="response-box">Respuesta: </div>
-  
   <a href="index.html" class="back-button">
     &#8592; Volver
   </a>
-  
-  </main>
-  <script src="script.js"></script>
+
+  <script src="flujos.js"></script>
 </body>
 </html>

@@ -1,9 +1,8 @@
 // Variables globales
-let currentAction = "output_ports"; // Acción seleccionada inicialmente
-let ipAddress = '10.132.58.38'; // Direccion IP del servidor Fast Api 
+let ipAddress = '192.168.18.66'; // Direccion IP del servidor Fast Api 
+
 // DOMContentLoaded: Configuración inicial al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-  //setupRyuAppForm();
   setupFlowForm();
   setupListFlowsForm();
   setupDeleteFlowForm();
@@ -11,11 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Selección inicial de acción
   document.getElementById("btn_flood").click();
 });
-
-/**
- * Configura el formulario para iniciar aplicaciones de Ryu
- */
-//function setupRyuAppForm() {   }
 
 /**
  * Configura el formulario para agregar flujos
@@ -198,7 +192,6 @@ function createFlowData(formData) {
     data.match.in_port = parseInt(formData.get("in_port"));
     data.actions = [];
   }
-
   return data;
 }
 

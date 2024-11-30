@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],  # Permitir todos los headers
 )
 
-RYU_CONTROLLER = "http://10.132.58.38:8080"
+RYU_CONTROLLER = "http://10.132.58.152:8080"
 # RYU_CONTROLLER = "http://192.168.18.66:8080"
 RYU_BASE_PATH = "/usr/lib/python3/dist-packages/ryu/app/"
 
@@ -89,7 +89,8 @@ def run_ryu_app(request: RyuAppRequest):
             raise HTTPException(status_code=404, detail=f"La aplicación '{app_name}' no existe en {RYU_BASE_PATH}")
 
         # Construye el comando para ejecutar ryu-manager con ofctl_rest y la aplicación solicitada simultaneamente
-        command = f"ryu-manager ryu.app.ofctl_rest ryu.app.{app_name}"
+        # command = f"ryu-manager ryu.app.ofctl_rest ryu.app.{app_name}"
+        command = f"ryu-manager --observe-links ryu.app.rest_topology ryu.app.ofctl_rest ryu.app.{app_name}"
 
         # Reinicia cualquier instancia previa de ryu-manager
         subprocess.run(["pkill", "-f", "ryu-manager"], check=False)
@@ -100,6 +101,30 @@ def run_ryu_app(request: RyuAppRequest):
         return {"message": f"La aplicación '{app_name}' fue iniciada exitosamente junto con ofctl_rest."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+    
+@app.get("/topology")
+def get_topology():
+    """
+    Obtiene y devuelve la información de la topología desde el controlador Ryu.
+    """
+    try:
+        # Obtener información de switches, links y hosts desde Ryu
+        switches_response = requests.get(f"{RYU_CONTROLLER}/v1.0/topology/switches")
+        links_response = requests.get(f"{RYU_CONTROLLER}/v1.0/topology/links")
+        hosts_response = requests.get(f"{RYU_CONTROLLER}/v1.0/topology/hosts")
+
+        if switches_response.status_code == 200 and links_response.status_code == 200 and hosts_response.status_code == 200:
+            return {
+                "switches": switches_response.json(),
+                "links": links_response.json(),
+                "hosts": hosts_response.json(),
+            }
+        else:
+            raise HTTPException(status_code=502, detail="Error al obtener datos de topología desde el controlador Ryu")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 
 

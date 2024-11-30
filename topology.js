@@ -1,20 +1,43 @@
-// URL base del controlador Ryu
-const baseURL = "http://10.132.52.148:8080/v1.0/topology";
-
 // Función para cargar datos de la API REST
 async function fetchTopology() {
+    
     try {
-        const switches = await fetch(`${baseURL}/switches`).then(res => res.json());
-        const links = await fetch(`${baseURL}/links`).then(res => res.json());
-        const hosts = await fetch(`${baseURL}/hosts`).then(res => res.json());
+        // Realiza la solicitud GET al servidor FastAPI
+        //let ipAddress = '10.132.58.152'; // Direccion IP del servidor Fast Api 
+        let ipAddress = '192.168.18.66';
+        const response = await fetch(`http://${ipAddress}:8000/topology`);
+        
+        // Verifica si la respuesta es exitosa
+        if (!response.ok) {
+            throw new Error(`Error al obtener la topología: ${response.statusText}`);
+        }
 
+        // Procesa la respuesta JSON
+        const { switches, links, hosts } = await response.json();
+        
         console.log("Switches:", switches);
         console.log("Links:", links);
         console.log("Hosts:", hosts);
 
-        // Procesar datos para la visualización
+        // Procesar los datos para la visualización
         const { nodes, edges } = processData(switches, links, hosts);
+        // Verificar si todos los nodos referenciados en edges existen en nodes
+        console.log("Nodos procesados:", nodes);
+        console.log("Enlaces procesados:", edges);
+        edges.forEach(edge => {
+            const sourceExists = nodes.some(node => node.id === edge.source);
+            const targetExists = nodes.some(node => node.id === edge.target);
+        
+            if (!sourceExists || !targetExists) {
+                console.error(`Nodo no encontrado en el enlace:`, edge);
+            }
+        });
         drawTopology(nodes, edges);
+
+                // chat
+                console.log("Enlaces procesados:", edges);
+
+
     } catch (error) {
         console.error("Error fetching topology data:", error);
     }
@@ -28,6 +51,7 @@ function processData(switches, links, hosts) {
     let hostCounter = 1;   // Contador para hosts
 
     // Añadir switches como nodos
+    // Procesar switches con DPID
     switches.forEach((sw) => {
         const switchLabel = `s${switchCounter++}`; // Asignar etiqueta s1, s2, etc.
         nodes.push({ id: sw.dpid, type: "switch", label: switchLabel });
@@ -175,5 +199,5 @@ function drawTopology(nodes, edges) {
     }
 }
 
-// Llamar a la función para cargar los datos al cargar la página
+// Llamar a la función para cargar los datos al cargar la 
 fetchTopology();

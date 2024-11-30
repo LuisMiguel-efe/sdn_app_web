@@ -5,14 +5,6 @@ body {
   padding: 0;
   background-color: #f9f9f9;
 }
-
-header {
-  background-color:  #0053be;
-  color: white;
-  text-align: center;
-  padding: 1px;
-}
-
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -22,11 +14,11 @@ header {
 
 .card {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  flex: 1 1 calc(50% - 20px);
-  min-width: 300px;
+  flex: 1 1 calc(2% - 20px);
+  min-width: 200px;
 }
 
 .right-section {
@@ -36,20 +28,18 @@ header {
   flex: 1;
 }
 
-h2 {
-  margin-top: 0;
-}
-
 .form-group {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   font-weight: bold;
 }
-
+h2 {
+  margin: 1%;
+}
 input {
   width: 98.5%;
   padding: 8px;
@@ -74,7 +64,7 @@ button.btn.secondary {
 }
 
 button.btn.danger {
-  background-color:  #0053be;
+  background-color:  #df0202;
 }
 
 button.btn:hover {
@@ -84,7 +74,7 @@ button.btn:hover {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 table th, table td {
@@ -184,4 +174,13 @@ button:hover {
 }
 .success {
   color: #28a745;
+}
+
+/* ====================== */
+/* Tabla con Scroll       */
+/* ====================== */
+.table-container {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 0.1px solid #ccc;
 }
