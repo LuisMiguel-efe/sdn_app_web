@@ -1,5 +1,5 @@
 // Variables globales
-let ipAddress = '192.168.18.66'; // Direccion IP del servidor Fast Api 
+let ipAddress = '192.168.18.231'; // Direccion IP del servidor Fast Api 
 
 // DOMContentLoaded: Configuración inicial al cargar la página
 document.addEventListener("DOMContentLoaded", () => {

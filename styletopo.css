@@ -1,0 +1,139 @@
+/* Fondo de la página */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #4a90e2, #50c2c9);
+    color: #fff;
+}
+
+/* Estilo del título */
+h1 {
+    margin: 20px 0;
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Contenedor de datos */
+#data-container {
+    width: 95%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* SVG para la topología */
+svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Botón de actualizar */
+#updateButton {
+    background: linear-gradient(135deg, #007BFF, #00d4ff);
+    color: white;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#updateButton:hover {
+    background: linear-gradient(135deg, #0056b3, #0098c8);
+    transform: scale(1.1);
+}
+
+/* Nodos de la topología */
+circle {
+    stroke: rgba(255, 255, 255, 0.6); /* Borde blanco semitransparente */
+    stroke-width: 2;
+}
+
+circle[type="switch"] {
+    fill: #ff6f61; /* Switches en rojo coral */
+    transition: all 0.3s ease;
+}
+
+circle[type="switch"]:hover {
+    fill: #ff3b28; /* Color más intenso al pasar el cursor */
+    cursor: pointer;
+}
+
+circle[type="host"] {
+    fill: #4caf50; /* Hosts en verde */
+    transition: all 0.3s ease;
+}
+
+circle[type="host"]:hover {
+    fill: #388e3c; /* Color más intenso al pasar el cursor */
+    cursor: pointer;
+}
+
+/* Texto de los nodos */
+text {
+    fill: #333; /* Cambiado a gris oscuro para mejor contraste */
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0); /* Eliminadas las sombras para claridad */
+}
+
+/* Tooltip */
+/* Tooltip */
+/* Tooltip */
+/* Tooltip */
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    background: #ffffff; /* Fondo blanco sólido */
+    color: #333333; /* Texto gris oscuro para suavidad */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: normal; /* Cambiado a normal para menos intensidad */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    visibility: hidden;
+    z-index: 10;
+    text-align: left;
+    line-height: 1.4; /* Línea más espaciosa */
+    white-space: nowrap; /* Evita salto de línea */
+}
+
+/* Botón de volver */
+.back-button {
+    background: linear-gradient(135deg, #007BFF, #00d4ff);
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg, #0056b3, #0098c8);
+    transform: scale(1.1);
+}

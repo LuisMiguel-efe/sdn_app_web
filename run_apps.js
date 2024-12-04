@@ -1,6 +1,6 @@
 const form = document.getElementById('ryuForm');
 const responseMessage = document.getElementById('responseMessage');
-let ipAddress = '192.168.18.66';
+let ipAddress = '192.168.18.231';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault(); // Evita que la página se recargue

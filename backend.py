@@ -16,8 +16,8 @@ app.add_middleware(
     allow_methods=["*"],  # Permitir todos los métodos HTTP
     allow_headers=["*"],  # Permitir todos los headers
 )
-
-RYU_CONTROLLER = "http://10.132.58.152:8080"
+RYU_CONTROLLER = "http://192.168.18.231:8080"
+# RYU_CONTROLLER = "http://10.132.58.152:8080"
 # RYU_CONTROLLER = "http://192.168.18.66:8080"
 RYU_BASE_PATH = "/usr/lib/python3/dist-packages/ryu/app/"
 

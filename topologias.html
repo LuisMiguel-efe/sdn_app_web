@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topología de Red</title>
-    <link rel="stylesheet" href="style_topo.css">
+    <link rel="stylesheet" href="styletopo.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <h1>Topología de Red</h1>
-    <div id="data-container"></div>
+    <h1 style="text-align: center; margin: 20px 0;">Topología de Red</h1>
+    <div id="controls" style="text-align: center; margin-bottom: 10px;">
+        <button id="updateButton">Actualizar Topología</button>
+    </div>
+    <div id="data-container">
+        <!-- Aquí se dibujará la topología -->
+    </div>
     <script src="topology.js"></script>
+    <a href="index.html" class="back-button">
+        &#8592; Volver
+      </a>
 </body>
 </html>
