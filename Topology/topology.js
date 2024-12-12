@@ -5,8 +5,8 @@ async function fetchTopology() {
     
     try {
         // Realiza la solicitud GET al servidor FastAPI
-        //let ipAddress = '10.132.58.152'; // Direccion IP del servidor Fast Api 
-        let ipAddress = '192.168.122.234';
+        let ipAddress = '10.132.58.152'; // Direccion IP del servidor Fast Api (misma que Ryu Server)
+     
         const response = await fetch(`http://${ipAddress}:8000/topology`);
         
         // Verifica si la respuesta es exitosa

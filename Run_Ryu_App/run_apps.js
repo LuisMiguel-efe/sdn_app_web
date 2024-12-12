@@ -1,6 +1,6 @@
 const form = document.getElementById('ryuForm');
 const responseMessage = document.getElementById('responseMessage');
-let ipAddress = '192.168.122.234';
+let ipAddress = '192.168.122.234'; // Direccion IP de servidor fastapi (misma que Ryu Server)
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault(); // Evita que la página se recargue
