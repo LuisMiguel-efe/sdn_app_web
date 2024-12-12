@@ -22,7 +22,7 @@ h1 {
 /* Contenedor de datos */
 #data-container {
     width: 95%;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;

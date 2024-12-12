@@ -1,6 +1,6 @@
 const form = document.getElementById('ryuForm');
 const responseMessage = document.getElementById('responseMessage');
-let ipAddress = '192.168.18.231';
+let ipAddress = '192.168.122.234';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault(); // Evita que la página se recargue
@@ -28,7 +28,7 @@ form.addEventListener('submit', async (e) => {
       responseMessage.className = "error";
     }
   } catch (error) {
-    responseMessage.textContent = "No se pudo conectar al backend.";
+    responseMessage.textContent = "Could not connect to backend";
     responseMessage.className = "error";
   }
 });

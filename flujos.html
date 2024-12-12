@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurador de Flujos OpenFlow</title>
+  <title>Openflow Flow Configurator</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -12,7 +12,7 @@
     <div class="container">      
       <!-- Formulario para añadir flujo -->
       <section id="addFlow" class="card">          
-        <h2><i class="fas fa-plus-circle"></i> Añadir Flujos</h2>
+        <h2><i class="fas fa-plus-circle"></i> Add Flows</h2>
         <nav class="menu-bar">
           <button onclick="changeAction('flood', this)" id="btn_flood">Flood</button>
           <button onclick="changeAction('output_ports', this)">Ports Output</button>
@@ -24,31 +24,31 @@
         </nav>
         <form id="flowForm">
           <div class="form-group">
-            <label for="dpid">DPID del Switch:</label>
+            <label for="dpid">Switch DPID:</label>
             <input type="number" id="dpid" name="dpid" required>
           </div>
           <div class="form-group" id="in_port_group">
-            <label for="in_port">Puerto de Entrada:</label>
+            <label for="in_port">Input Port:</label>
             <input type="number" id="in_port" name="in_port">
           </div>
           <div class="form-group hidden" id="in_ip_group">
-            <label for="ip_src">IP de Fuente:</label>
+            <label for="ip_src">IP Source:</label>
             <input type="text" id="ip_src" name="ip_src">
           </div>
           <div class="form-group hidden" id="out_ip_group">
-            <label for="ip_dst">IP de Destino:</label>
+            <label for="ip_dst">IP Destination:</label>
             <input type="text" id="ip_dst" name="ip_dst">
           </div>
           <div class="form-group hidden" id="in_mac_group">
-            <label for="mac_src">MAC de Fuente:</label>
+            <label for="mac_src">MAC Source:</label>
             <input type="text" id="mac_src" name="mac_src">
           </div>
           <div class="form-group hidden" id="out_mac_group">
-            <label for="mac_dst">MAC de Destino:</label>
+            <label for="mac_dst">MAC Destination:</label>
             <input type="text" id="mac_dst" name="mac_dst">
           </div>
           <div class="form-group" id="out_port_group">
-            <label for="out_port">Puerto de Salida:</label>
+            <label for="out_port">Output Port:</label>
             <input type="number" id="out_port" name="out_port">
           </div>
 
@@ -57,7 +57,7 @@
             <input type="number" id="cookie" name="cookie" value="1" required>
           </div>
           <div class="form-group">
-            <label for="priority">Prioridad:</label>
+            <label for="priority">Priority:</label>
             <input type="number" id="priority" name="priority" value="11111" required>
           </div>
           <div class="form-group">
@@ -68,23 +68,23 @@
             <label for="hard_timeout">Hard Timeout:</label>
             <input type="number" id="hard_timeout" name="hard_timeout" value="600" required>
           </div>
-          <button type="submit" class="btn primary">Enviar Flujo</button>
+          <button type="submit" class="btn primary">Add Flow</button>
         </form>
       </section>
 
       <!-- Formulario para ver y eliminar flujos -->
       <div class="right-section">
         <section id="viewFlows" class="card1">
-          <h2><i class="fas fa-eye"></i> Ver Flujos</h2>
+          <h2><i class="fas fa-eye"></i> View Flows</h2>
           <form id="listFlowsForm">
             <div class="form-group">
-              <label for="list_dpid">DPID del Switch:</label>
+              <label for="list_dpid">Switch DPID:</label>
               <input type="number" id="list_dpid" name="list_dpid" required>
             </div>
-            <button type="submit" class="btn secondary">Listar Flujos</button>
+            <button type="submit" class="btn secondary">Show Flows</button>
           </form>
           <div id="flowsList">
-            <h3>Flujos:</h3>
+            <h3>Flows:</h3>
             <div class="table-container">
               <table>
                 <thead>
@@ -100,17 +100,17 @@
           </div>
         </section>
         <section id="deleteFlow" class="card1">
-          <h2><i class="fas fa-trash-alt"></i> Eliminar Flujo</h2>
+          <h2><i class="fas fa-trash-alt"></i> Delete Flows</h2>
           <form id="deleteFlowForm">
             <div class="form-group">
-              <label for="delete_dpid">DPID del Switch:</label>
+              <label for="delete_dpid">Switch DPID:</label>
               <input type="number" id="delete_dpid" name="delete_dpid" required>
             </div>
             <div class="form-group">
-              <label for="delete_cookie">Cookie del Flujo:</label>
+              <label for="delete_cookie">Flow Cookie:</label>
               <input type="number" id="delete_cookie" name="delete_cookie" required>
             </div>
-            <button type="submit" class="btn danger">Eliminar Flujo</button>
+            <button type="submit" class="btn danger">Delete Flow</button>
           </form>
         </section>
       </div>
@@ -120,8 +120,9 @@
   </main>
 
   <a href="index.html" class="back-button">
-    &#8592; Volver
+    &#8592; Back
   </a>
+  <a href="#" class="back-button" onclick="openPopup('topologias.html')">View Topology</a>
 
   <script src="flujos.js"></script>
 </body>

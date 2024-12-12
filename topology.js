@@ -6,12 +6,12 @@ async function fetchTopology() {
     try {
         // Realiza la solicitud GET al servidor FastAPI
         //let ipAddress = '10.132.58.152'; // Direccion IP del servidor Fast Api 
-        let ipAddress = '192.168.18.231';
+        let ipAddress = '192.168.122.234';
         const response = await fetch(`http://${ipAddress}:8000/topology`);
         
         // Verifica si la respuesta es exitosa
         if (!response.ok) {
-            throw new Error(`Error al obtener la topología: ${response.statusText}`);
+            throw new Error(`Can't obtain the topology: ${response.statusText}`);
         }
 
         // Procesa la respuesta JSON
@@ -35,9 +35,8 @@ async function fetchTopology() {
             }
         });
         drawTopology(nodes, edges);
-
-                // chat
-                console.log("Enlaces procesados:", edges);
+        // chat
+        console.log("Enlaces procesados:", edges);
 
 
     } catch (error) {
@@ -143,7 +142,7 @@ function drawTopology(nodes, edges) {
 
     // Añadir comportamiento de zoom
     const zoom = d3.zoom()
-        .scaleExtent([1, 10])
+        .scaleExtent([1, 5])
         .on("zoom", (event) => g.attr("transform", event.transform));
     svg.call(zoom);
 
@@ -159,7 +158,7 @@ function drawTopology(nodes, edges) {
         .force("link", d3.forceLink(edges).id(d => d.id).distance(150))
         .force("charge", d3.forceManyBody().strength(-300))
         .force("center", d3.forceCenter(0, 0))
-        .force("collide", d3.forceCollide(50));
+        .force("collide", d3.forceCollide(10));
 
     const link = g.append("g")
         .selectAll("line")

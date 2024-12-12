@@ -1,5 +1,5 @@
 // Variables globales
-let ipAddress = '192.168.18.231'; // Direccion IP del servidor Fast Api 
+let ipAddress = '192.168.122.234'; // Direccion IP del servidor Fast Api 
 
 // DOMContentLoaded: Configuración inicial al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
@@ -25,7 +25,7 @@ function setupFlowForm() {
     e.preventDefault();
     const data = createFlowData(new FormData(e.target));
     const responseElement = document.getElementById("response");
-    responseElement.textContent = "Enviando flujo...";
+    responseElement.textContent = "Adding flow...";
 
     try {
       
@@ -37,12 +37,12 @@ function setupFlowForm() {
 
       if (response.ok) {
         const result = await response.json();
-        displayResponseMessage(`Flujo configurado exitosamente: ${JSON.stringify(result)}`, true, responseElement);
+        displayResponseMessage(`Flow added successfully: ${JSON.stringify(result)}`, true, responseElement);
       } else {
-        displayResponseMessage(`Error al configurar flujo: ${response.statusText}`, false, responseElement);
+        displayResponseMessage(`Error configuring flow: ${response.statusText}`, false, responseElement);
       }
     } catch (error) {
-      displayResponseMessage(`Error de conexión: ${error.message}`, false, responseElement);
+      displayResponseMessage(`Connection error: ${error.message}`, false, responseElement);
     }
   });
 }
@@ -69,10 +69,10 @@ function setupListFlowsForm() {
         const flows = await response.json();
         populateFlowsTable(flows, flowsTableBody);
       } else {
-        alert(`Error al listar flujos: ${response.statusText}`);
+        alert(`Error listing flows: ${response.statusText}`);
       }
     } catch (error) {
-      alert(`Error de conexión: ${error.message}`);
+      alert(`Connection error: ${error.message}`);
     }
   });
 }
@@ -104,10 +104,10 @@ function setupDeleteFlowForm() {
         const result = await response.json();
         displayResponseMessage(result.message, true, responseElement);
       } else {
-        displayResponseMessage(`Error al eliminar flujo: ${response.statusText}`, false, responseElement);
+        displayResponseMessage(`Error deleting flow: ${response.statusText}`, false, responseElement);
       }
     } catch (error) {
-      displayResponseMessage(`Error de conexión: ${error.message}`, false, responseElement);
+      displayResponseMessage(`Connection error: ${error.message}`, false, responseElement);
     }
   });
 }
@@ -226,7 +226,14 @@ function displayResponseMessage(message, success, element) {
   element.style.backgroundColor = success ? "#DFF2BF" : "#FFBABA";
   element.style.color = success ? "#4F8A10" : "#D8000C";
 }
-
+function openPopup(url) {
+  // Abrir una nueva ventana emergente con dimensiones específicas
+  window.open(
+    url, // URL del archivo
+    '_blank', // Abrir en una nueva ventana
+    'width=800,height=600,scrollbars=yes,resizable=yes' // Especificaciones de la ventana
+  );
+}
 
 /*
 / APLICACIONES DE RYU
